@@ -1,23 +1,38 @@
-import {
-  API_KEY, BASE_URL,
-  IMG_URL,
-  language,
-} from './api.js'
+export const API_KEY = '05348e9ad10d8405bd4e51119e3946f2';
+export const BASE_URL = 'https://api.themoviedb.org/3/movie/';
+export const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+export const language = 'language=pt-BR';
 
-const imagemovie = document.getElementById('image-movie');
-const titlemovie = document.getElementById('tittle-movie');
-const descriptionmovie = document.getElementById('description-movie');
-const btn_random = document.querySelector('button');
+let btn_random 
+let imagemovie
+let titlemovie
+let descriptionmovie
 
-btn_random.addEventListener('click', meeetMovies);
+window.addEventListener('DOMContentLoaded', (event) => {
+  btn_random = document.querySelector('button');
+  imagemovie = document.getElementById('image-movie');
+  titlemovie = document.getElementById('title-movie');
+  descriptionmovie = document.getElementById('description-movie');
 
-meetMovies(); {
+  btn_random.addEventListener('click', meetMovies);
+});
+
+function randomMovie() {
+  let first = 1 
+  let latest = 998724
+
+  return Math.floor(Math.random() * latest) + first
+}
+
+
+function meetMovies() {
 
   let title
   let description
   let image
+  let id = randomMovie() 
 
-  axios.get(`${BASE_URL}?api_key=${API_KEY}&${language}`)
+  axios.get(`${BASE_URL}${id}?api_key=${API_KEY}&${language}`)
 
   .then(function(response){
     title = response.data.title;
@@ -40,5 +55,7 @@ meetMovies(); {
 
 
 };
+
+
 
 
